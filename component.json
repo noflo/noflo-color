@@ -11,14 +11,21 @@
   },
   "scripts": [
     "index.js",
-    "components/Rotate.coffee"
+    "lib/Arrayable.coffee",
+    "components/Rotate.coffee",
+    "components/Transform.coffee",
+    "components/ConvertToHSL.coffee",
+    "components/ConvertToRGB.coffee"
   ],
   "json": [
     "component.json"
   ],
   "noflo": {
     "components": {
-      "Rotate": "components/Rotate.coffee"
+      "ConvertToHSL": "components/ConvertToHSL.coffee",
+      "ConvertToRGB": "components/ConvertToRGB.coffee",
+      "Rotate": "components/Rotate.coffee",
+      "Transform": "components/Transform.coffee"
     }
   }
 }

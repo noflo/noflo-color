@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "noflo": "~0.5.0",
-    "color": "~0.5.0"
+    "color": "~0.5.0",
+    "noflo-helper-arrayable": "automata/noflo-helper-arrayable"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
@@ -40,7 +41,10 @@
   "keywords": [],
   "noflo": {
     "components": {
-      "Rotate": "components/Rotate.coffee"
+      "ConvertToHSL": "components/ConvertToHSL.coffee",
+      "ConvertToRGB": "components/ConvertToRGB.coffee",
+      "Rotate": "components/Rotate.coffee",
+      "Transform": "components/Transform.coffee"
     }
   }
 }
