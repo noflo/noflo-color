@@ -59,34 +59,31 @@ class Transform extends Arrayable
     @props.desaturate? or @props.whiten? or @props.blacken? or
     @props.clearer? or @props.opaquer? or @props.rotate?
 
-    transform = @props
-
+    new_colors = []
     if @props.color instanceof Array
-      transform = @expandToArray @props
-      # Calls @foo for each of @props.foo inport that has a value
-      for k of @props
-        # Color and type are not expected methods (for color instance)
-        if k isnt 'color' and k isnt 'type'
-          # Following DRY, we use a factory to call proper color.method
-          transform = transform.map (x) => @factory(x, k)
-    else
-      for k of @props
-        if k isnt 'color' and k isnt 'type'
-          transform = @[k] @props
+      colors = @expandToArray @props.color
+      for c in colors
+        if c instanceof Array
+          cc = c[0]
+        else
+          cc = c
+        # Calls @foo for each of @props.foo inport that has a value
+        for k of @props
+          # Color and type are not expected methods (for color instance)
+          if k isnt 'color' and k isnt 'type'
+            # Following DRY, we use a factory to call proper color.method
+            cc = @factory(k, cc)
+        new_colors.push(cc)
 
-    # We don't want commands, just color strings
-    if transform instanceof Array
-      colors = (t.color for t in transform)
-    else
-      colors = transform.color
+    if new_colors.length == 1
+      new_colors = new_colors[0]
 
-    @outPorts.color.send colors
+    @outPorts.color.send new_colors
 
-  factory: (props, op) ->
-    color = new Color props.color
+  factory: (op, old_color) ->
+    color = new Color old_color
     # Metaprogramming for the sake
-    props.color = color[op](props[op]).hslString()
-    # Returning props we can chain operations?
-    return props
+    new_color = color[op](@props[op]).hslString()
+    return new_color
 
 exports.getComponent = -> new Transform

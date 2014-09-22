@@ -43,7 +43,6 @@
     "components": {
       "ConvertToHSL": "components/ConvertToHSL.coffee",
       "ConvertToRGB": "components/ConvertToRGB.coffee",
-      "Rotate": "components/Rotate.coffee",
       "Transform": "components/Transform.coffee"
     }
   }

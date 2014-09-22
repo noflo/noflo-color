@@ -12,7 +12,6 @@
   "scripts": [
     "index.js",
     "lib/Arrayable.coffee",
-    "components/Rotate.coffee",
     "components/Transform.coffee",
     "components/ConvertToHSL.coffee",
     "components/ConvertToRGB.coffee"
@@ -24,7 +23,6 @@
     "components": {
       "ConvertToHSL": "components/ConvertToHSL.coffee",
       "ConvertToRGB": "components/ConvertToRGB.coffee",
-      "Rotate": "components/Rotate.coffee",
       "Transform": "components/Transform.coffee"
     }
   }
