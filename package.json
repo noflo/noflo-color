@@ -43,6 +43,11 @@
     "components": {
       "ConvertToHSL": "components/ConvertToHSL.coffee",
       "ConvertToRGB": "components/ConvertToRGB.coffee",
+      "GetContrast": "components/GetContrast.coffee",
+      "GetLuminosity": "components/GetLuminosity.coffee",
+      "IsDark": "components/IsDark.coffee",
+      "IsLight": "components/IsLight.coffee",
+      "Mix": "components/Mix.coffee",
       "Transform": "components/Transform.coffee"
     }
   }

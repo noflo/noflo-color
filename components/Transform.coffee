@@ -9,7 +9,7 @@ class Transform extends Arrayable
     ports =
       color:
         datatype: 'object'
-        description: 'color to transform'
+        description: 'color(s) to transform'
         addressable: true
         required: true
       lighten:
@@ -26,7 +26,7 @@ class Transform extends Arrayable
         required: false
       desaturate:
         datatype: 'number'
-        description: '(0..1)'
+        description: 'desaturation intensity(0..1)'
         required: false
       whiten:
         datatype: 'number'
@@ -42,12 +42,12 @@ class Transform extends Arrayable
         required: false
       opaquer:
         datatype: 'number'
-        description: '(0..1)'
+        description: 'opaque intensity (0..1)'
         required: false
       rotate:
         datatype: 'number'
         type: 'noflo-canvas/angle'
-        description: 'angle in degrees'
+        description: 'angle in degrees (0..360)'
         required: false
 
     super 'color', ports

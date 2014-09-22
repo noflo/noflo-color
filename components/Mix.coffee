@@ -2,22 +2,30 @@ noflo = require 'noflo'
 {Arrayable} = require '../lib/Arrayable'
 Color = require 'color'
 
-class ConvertToRGB extends Arrayable
-  description: 'Converts a given color to RGB.'
+class Mix extends Arrayable
+  description: 'Mix the given colors with a reference color.'
   icon: 'tint'
   constructor: ->
     ports =
       color:
         datatype: 'object'
-        description: 'color(s) to convert'
+        description: 'color(s) to mix'
         addressable: true
         required: true
+      reference:
+        datatype: 'object'
+        description: 'a reference color'
+        required: true
+      weight:
+        datatype: 'number'
+        description: 'weight (0 first, 1 second)'
+        required: false
 
     super 'color', ports
 
   compute: ->
     return unless @outPorts.color.isAttached()
-    return unless @props.color? and @props.color.length>0
+    return unless @props.color? and @props.color.length>0 and @props.reference?
 
     new_colors = []
     if @props.color instanceof Array
@@ -27,7 +35,8 @@ class ConvertToRGB extends Arrayable
           cc = c[0]
         else
           cc = c
-        cc = @toRGB(cc)
+        
+        cc = @mix(cc)
         new_colors.push(cc)
 
     if new_colors.length == 1
@@ -35,8 +44,9 @@ class ConvertToRGB extends Arrayable
 
     @outPorts.color.send new_colors
 
-  toRGB: (old_color) ->
-    color = new Color old_color
-    return color.rgbString()
+  mix: (a_color) ->
+    colorA = new Color a_color
+    colorB = new Color @props.reference
+    return colorA.mix(colorB, @props.weight).hslString()
 
-exports.getComponent = -> new ConvertToRGB
+exports.getComponent = -> new Mix

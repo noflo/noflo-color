@@ -9,7 +9,7 @@ class ConvertToHSL extends Arrayable
     ports =
       color:
         datatype: 'object'
-        description: 'color to convert'
+        description: 'color(s) to convert'
         addressable: true
         required: true
 
@@ -17,19 +17,26 @@ class ConvertToHSL extends Arrayable
 
   compute: ->
     return unless @outPorts.color.isAttached()
-    return unless @props.color?
-    transform = @props
+    return unless @props.color? and @props.color.length>0
 
-    if (@props.color instanceof Array)
-      transform = @expandToArray @props.color
-      transform = transform.map @toHSL
-    else
-      transform = @toHSL @props.color
+    new_colors = []
+    if @props.color instanceof Array
+      colors = @expandToArray @props.color
+      for c in colors
+        if c instanceof Array
+          cc = c[0]
+        else
+          cc = c
+        cc = @toHSL(cc)
+        new_colors.push(cc)
 
-    @outPorts.transform.send transform
+    if new_colors.length == 1
+      new_colors = new_colors[0]
 
-  toHSL: (data) ->
-    color = new Color data
+    @outPorts.color.send new_colors
+
+  toHSL: (old_color) ->
+    color = new Color old_color
     return color.hslString()
 
 exports.getComponent = -> new ConvertToHSL
