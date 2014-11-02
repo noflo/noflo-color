@@ -19,13 +19,15 @@
     "components/GetContrast.coffee",
     "components/Mix.coffee",
     "components/IsLight.coffee",
-    "components/IsDark.coffee"
+    "components/IsDark.coffee",
+    "components/Chromatose.coffee"
   ],
   "json": [
     "component.json"
   ],
   "noflo": {
     "components": {
+      "Chromatose": "components/Chromatose.coffee",
       "ConvertToHSL": "components/ConvertToHSL.coffee",
       "ConvertToRGB": "components/ConvertToRGB.coffee",
       "GetContrast": "components/GetContrast.coffee",
