@@ -3,3 +3,11 @@ node_js:
 - '4.6'
 before_script:
 - npm install -g grunt-cli
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: fN0oO24R9a0bLnfcaXiuYD3x6Fn6HJ42liwDkU6EYry1IvsEOU/LER43HbQwwreNR25/NA6sBSKqcOt7zct7RJCo37nrdv53cGIzrdDz1k0mIVULlLSZIzazS7l8/sXQDLn3l9CRvG0fUYx22YEh+A5xh94dn9Ct16UN+oL/xW4=
+  on:
+    tags: true
+    repo: noflo/noflo-color
