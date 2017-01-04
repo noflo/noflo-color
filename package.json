@@ -9,14 +9,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://gitthub.com/automata/noflo-color.git"
+    "url": "git://gitthub.com/noflo/noflo-color.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "undefined/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "scripts": {
     "test": "grunt test"
   },
@@ -42,7 +37,7 @@
     "json-loader": "^0.5.4",
     "mocha": "~3.2.0"
   },
-  "keywords": [],
+  "keywords": ["noflo"],
   "noflo": {
     "components": {
       "Chromatose": "components/Chromatose.coffee",
