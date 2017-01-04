@@ -1,21 +1,30 @@
 noflo = require 'noflo'
 
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  IsLight = require '../components/IsLight.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  IsLight = require 'noflo-color/components/IsLight.js'
+  baseDir = 'noflo-color'
 
 describe 'IsLight component', ->
   c = null
   sock_color = null
   sock_light = null
 
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'color/IsLight', (err, instance) ->
+      return done err if err
+      c = instance
+      sock_color = noflo.internalSocket.createSocket()
+      c.inPorts.color.attach sock_color
+      done()
   beforeEach ->
-    c = IsLight.getComponent()
-    sock_color = noflo.internalSocket.createSocket()
     sock_light = noflo.internalSocket.createSocket()
-    c.inPorts.color.attach sock_color
+    c.outPorts.light.attach sock_light
+  afterEach ->
     c.outPorts.light.attach sock_light
 
   describe 'when instantiated', ->

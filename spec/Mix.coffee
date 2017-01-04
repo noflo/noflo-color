@@ -1,10 +1,11 @@
 noflo = require 'noflo'
 
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  Mix = require '../components/Mix.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  Mix = require 'noflo-color/components/Mix.js'
+  baseDir = 'noflo-color'
 
 describe 'Mix component', ->
   c = null
@@ -12,17 +13,26 @@ describe 'Mix component', ->
   sock_reference = null
   sock_weight = null
   sock_colorout = null
+  loader = null
+  before ->
+    loader = new noflo.ComponentLoader baseDir
 
-  beforeEach ->
-    c = Mix.getComponent()
-    sock_color = noflo.internalSocket.createSocket()
-    sock_reference = noflo.internalSocket.createSocket()
-    sock_weight = noflo.internalSocket.createSocket()
-    sock_colorout = noflo.internalSocket.createSocket()
-    c.inPorts.color.attach sock_color
-    c.inPorts.reference.attach sock_reference
-    c.inPorts.weight.attach sock_weight
-    c.outPorts.color.attach sock_colorout
+  beforeEach (done) ->
+    @timeout 4000
+    loader.load 'color/Mix', (err, instance) ->
+      return done err if err
+      c = instance
+      sock_color = noflo.internalSocket.createSocket()
+      c.inPorts.color.attach sock_color
+      sock_reference = noflo.internalSocket.createSocket()
+      c.inPorts.reference.attach sock_reference
+      sock_weight = noflo.internalSocket.createSocket()
+      c.inPorts.weight.attach sock_weight
+      sock_colorout = noflo.internalSocket.createSocket()
+      c.outPorts.color.attach sock_colorout
+      done()
+  afterEach ->
+    c.outPorts.color.detach sock_colorout
 
   describe 'when instantiated', ->
     it 'should have three input ports', ->

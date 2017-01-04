@@ -1,10 +1,11 @@
 noflo = require 'noflo'
 
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  GetContrast = require '../components/GetContrast.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  GetContrast = require 'noflo-color/components/GetContrast.js'
+  baseDir = 'noflo-color'
 
 describe 'GetContrast component', ->
   c = null
@@ -12,14 +13,22 @@ describe 'GetContrast component', ->
   sock_reference = null
   sock_contrast = null
 
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'color/GetContrast', (err, instance) ->
+      return done err if err
+      c = instance
+      sock_color = noflo.internalSocket.createSocket()
+      c.inPorts.color.attach sock_color
+      sock_reference = noflo.internalSocket.createSocket()
+      c.inPorts.reference.attach sock_reference
+      done()
   beforeEach ->
-    c = GetContrast.getComponent()
-    sock_color = noflo.internalSocket.createSocket()
-    sock_reference = noflo.internalSocket.createSocket()
     sock_contrast = noflo.internalSocket.createSocket()
-    c.inPorts.color.attach sock_color
-    c.inPorts.reference.attach sock_reference
     c.outPorts.contrast.attach sock_contrast
+  afterEach ->
+    c.outPorts.contrast.detach sock_contrast
 
   describe 'when instantiated', ->
     it 'should have two input ports', ->
