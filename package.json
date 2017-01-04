@@ -16,7 +16,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "noflo": "~0.6.0",
+    "noflo": "0.x >= 0.5",
     "color": "~0.11.1",
     "noflo-helper-arrayable": "automata/noflo-helper-arrayable"
   },
