@@ -1,22 +1,31 @@
 noflo = require 'noflo'
 
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  GetLuminosity = require '../components/GetLuminosity.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  GetLuminosity = require 'noflo-color/components/GetLuminosity.js'
+  baseDir = 'noflo-color'
 
 describe 'GetLuminosity component', ->
   c = null
   sock_color = null
   sock_luminosity = null
 
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'color/GetLuminosity', (err, instance) ->
+      return done err if err
+      c = instance
+      sock_color = noflo.internalSocket.createSocket()
+      c.inPorts.color.attach sock_color
+      done()
   beforeEach ->
-    c = GetLuminosity.getComponent()
-    sock_color = noflo.internalSocket.createSocket()
     sock_luminosity = noflo.internalSocket.createSocket()
-    c.inPorts.color.attach sock_color
     c.outPorts.luminosity.attach sock_luminosity
+  afterEach ->
+    c.outPorts.luminosity.detach sock_luminosity
 
   describe 'when instantiated', ->
     it 'should have one input port', ->

@@ -1,10 +1,11 @@
 noflo = require 'noflo'
 
 unless noflo.isBrowser()
-  chai = require 'chai' unless chai
-  Transform = require '../components/Transform.coffee'
+  chai = require 'chai'
+  path = require 'path'
+  baseDir = path.resolve __dirname, '../'
 else
-  Transform = require 'noflo-color/components/Transform.js'
+  baseDir = 'noflo-color'
 
 describe 'Transform component', ->
   c = null
@@ -20,30 +21,38 @@ describe 'Transform component', ->
   sock_rotate = null
   sock_outcolor = null
 
+  before (done) ->
+    @timeout 4000
+    loader = new noflo.ComponentLoader baseDir
+    loader.load 'color/Transform', (err, instance) ->
+      return done err if err
+      c = instance
+      sock_color = noflo.internalSocket.createSocket()
+      sock_lighten = noflo.internalSocket.createSocket()
+      sock_darken = noflo.internalSocket.createSocket()
+      sock_saturate = noflo.internalSocket.createSocket()
+      sock_desaturate = noflo.internalSocket.createSocket()
+      sock_whiten = noflo.internalSocket.createSocket()
+      sock_blacken = noflo.internalSocket.createSocket()
+      sock_clearer = noflo.internalSocket.createSocket()
+      sock_opaquer = noflo.internalSocket.createSocket()
+      sock_rotate = noflo.internalSocket.createSocket()
+      c.inPorts.color.attach sock_color
+      c.inPorts.lighten.attach sock_lighten
+      c.inPorts.darken.attach sock_darken
+      c.inPorts.saturate.attach sock_saturate
+      c.inPorts.desaturate.attach sock_desaturate
+      c.inPorts.whiten.attach sock_whiten
+      c.inPorts.blacken.attach sock_blacken
+      c.inPorts.clearer.attach sock_clearer
+      c.inPorts.opaquer.attach sock_opaquer
+      c.inPorts.rotate.attach sock_rotate
+      done()
   beforeEach ->
-    c = Transform.getComponent()
-    sock_color = noflo.internalSocket.createSocket()
-    sock_lighten = noflo.internalSocket.createSocket()
-    sock_darken = noflo.internalSocket.createSocket()
-    sock_saturate = noflo.internalSocket.createSocket()
-    sock_desaturate = noflo.internalSocket.createSocket()
-    sock_whiten = noflo.internalSocket.createSocket()
-    sock_blacken = noflo.internalSocket.createSocket()
-    sock_clearer = noflo.internalSocket.createSocket()
-    sock_opaquer = noflo.internalSocket.createSocket()
-    sock_rotate = noflo.internalSocket.createSocket()
     sock_outcolor = noflo.internalSocket.createSocket()
-    c.inPorts.color.attach sock_color
-    c.inPorts.lighten.attach sock_lighten
-    c.inPorts.darken.attach sock_darken
-    c.inPorts.saturate.attach sock_saturate
-    c.inPorts.desaturate.attach sock_desaturate
-    c.inPorts.whiten.attach sock_whiten
-    c.inPorts.blacken.attach sock_blacken
-    c.inPorts.clearer.attach sock_clearer
-    c.inPorts.opaquer.attach sock_opaquer
-    c.inPorts.rotate.attach sock_rotate
     c.outPorts.color.attach sock_outcolor
+  afterEach ->
+    c.outPorts.color.detach sock_outcolor
 
   describe 'when instantiated', ->
     it 'should have ten input ports', ->
