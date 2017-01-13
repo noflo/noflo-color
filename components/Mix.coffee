@@ -47,6 +47,6 @@ class Mix extends Arrayable
   mix: (a_color) ->
     colorA = new Color a_color
     colorB = new Color @props.reference
-    return colorA.mix(colorB, @props.weight).hslString()
+    return colorA.mix(colorB, @props.weight).hsl().string()
 
 exports.getComponent = -> new Mix
