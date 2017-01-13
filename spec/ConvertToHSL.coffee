@@ -36,14 +36,14 @@ describe 'ConvertToHSL component', ->
   describe 'single color convertion', ->
     it 'should output a color string', ->
       sock_outcolor.once 'data', (data) ->
-        chai.expect(data).to.equal 'hsl(100, 50%, 50%)'
+        chai.expect(data).to.equal 'hsl(100.19999999999999, 49.8%, 50%)'
       sock_color.send 'rgb(106, 191, 64)'
 
   describe 'multiple color convertion', ->
     it 'should output an array of color strings', ->
       sock_outcolor.once 'data', (data) ->
         chai.expect(data).to.be.an 'array'
-        chai.expect(data[0]).to.equal 'hsl(100, 50%, 50%)'
+        chai.expect(data[0]).to.equal 'hsl(100.19999999999999, 49.8%, 50%)'
         chai.expect(data[1]).to.equal 'hsl(0, 0%, 0%)'
       sock_color.send ['rgb(106, 191, 64)', 'rgb(0, 0, 0)']
 

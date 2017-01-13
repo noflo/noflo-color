@@ -60,8 +60,8 @@ describe 'Mix component', ->
     it 'should output an array of mixed colors', ->
       sock_colorout.once 'data', (data) ->
         chai.expect(data).to.be.an 'array'
-        chai.expect(data[0]).to.equal 'hsl(26, 70%, 42%)'
-        chai.expect(data[1]).to.equal 'hsl(216, 50%, 42%)'
+        chai.expect(data[0]).to.equal 'hsl(25.69999999999999, 70%, 41.7%)'
+        chai.expect(data[1]).to.equal 'hsl(216, 50%, 41.7%)'
       sock_color.send ['red', 'blue']
       sock_reference.send 'hsl(100, 50%, 50%)'
 
