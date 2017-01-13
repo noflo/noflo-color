@@ -37,6 +37,6 @@ class ConvertToHSL extends Arrayable
 
   toHSL: (old_color) ->
     color = new Color old_color
-    return color.hslString()
+    return color.hsl().string()
 
 exports.getComponent = -> new ConvertToHSL

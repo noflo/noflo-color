@@ -83,7 +83,7 @@ class Transform extends Arrayable
   factory: (op, old_color) ->
     color = new Color old_color
     # Metaprogramming for the sake
-    new_color = color[op](@props[op]).hslString()
+    new_color = color[op](@props[op]).hsl().string()
     return new_color
 
 exports.getComponent = -> new Transform

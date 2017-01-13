@@ -37,6 +37,6 @@ class ConvertToRGB extends Arrayable
 
   toRGB: (old_color) ->
     color = new Color old_color
-    return color.rgbString()
+    return color.rgb().string()
 
 exports.getComponent = -> new ConvertToRGB
