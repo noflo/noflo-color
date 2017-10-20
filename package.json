@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "color": "~2.0.0",
-    "noflo": "0.x >= 0.5",
+    "noflo": "0.x >= 0.8",
     "noflo-helper-arrayable": "~0.1.0"
   },
   "devDependencies": {
