@@ -1,8 +1,8 @@
 noflo = require 'noflo'
-{Arrayable} = require '../lib/Arrayable'
+ArrayableHelper = require 'noflo-helper-arrayable'
 Color = require 'color'
 
-class GetLuminosity extends Arrayable
+class GetLuminosity extends noflo.Component
   description: 'Get the relative luminosity of a given color.'
   icon: 'tint'
   constructor: ->
@@ -13,15 +13,14 @@ class GetLuminosity extends Arrayable
         addressable: true
         required: true
 
-    super 'luminosity', ports
+    ArrayableHelper @, 'luminosity', ports
 
-  compute: ->
-    return unless @outPorts.luminosity.isAttached()
-    return unless @props.color? and @props.color.length>0
+  compute: (props) ->
+    return unless props.color? and props.color.length>0
 
     luminosities = []
-    if @props.color instanceof Array
-      colors = @expandToArray @props.color
+    if props.color instanceof Array
+      colors = @expandToArray props.color
       for c in colors
         if c instanceof Array
           cc = c[0]
@@ -34,7 +33,7 @@ class GetLuminosity extends Arrayable
     if luminosities.length == 1
       luminosities = luminosities[0]
 
-    @outPorts.luminosity.send luminosities
+    return luminosities
 
   getLuminosity: (a_color) ->
     color = new Color a_color

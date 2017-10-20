@@ -1,8 +1,8 @@
 noflo = require 'noflo'
-{Arrayable} = require '../lib/Arrayable'
+ArrayableHelper = require 'noflo-helper-arrayable'
 Color = require 'color'
 
-class IsDark extends Arrayable
+class IsDark extends noflo.Component
   description: 'Check if a dark color.'
   icon: 'tint'
   constructor: ->
@@ -13,15 +13,14 @@ class IsDark extends Arrayable
         addressable: true
         required: true
 
-    super 'dark', ports
+    ArrayableHelper @, 'dark', ports
 
-  compute: ->
-    return unless @outPorts.dark.isAttached()
-    return unless @props.color? and @props.color.length>0
+  compute: (props) ->
+    return unless props.color? and props.color.length>0
 
     darks = []
-    if @props.color instanceof Array
-      colors = @expandToArray @props.color
+    if props.color instanceof Array
+      colors = @expandToArray props.color
       for c in colors
         if c instanceof Array
           cc = c[0]
@@ -34,7 +33,7 @@ class IsDark extends Arrayable
     if darks.length == 1
       darks = darks[0]
 
-    @outPorts.dark.send darks
+    return darks
 
   isDark: (a_color) ->
     color = new Color a_color

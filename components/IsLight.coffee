@@ -1,8 +1,8 @@
 noflo = require 'noflo'
-{Arrayable} = require '../lib/Arrayable'
+ArrayableHelper = require 'noflo-helper-arrayable'
 Color = require 'color'
 
-class IsLight extends Arrayable
+class IsLight extends noflo.Component
   description: 'Check if a light color.'
   icon: 'tint'
   constructor: ->
@@ -13,15 +13,14 @@ class IsLight extends Arrayable
         addressable: true
         required: true
 
-    super 'light', ports
+    ArrayableHelper @, 'light', ports
 
-  compute: ->
-    return unless @outPorts.light.isAttached()
-    return unless @props.color? and @props.color.length>0
+  compute: (props) ->
+    return unless props.color? and props.color.length>0
 
     lights = []
-    if @props.color instanceof Array
-      colors = @expandToArray @props.color
+    if props.color instanceof Array
+      colors = @expandToArray props.color
       for c in colors
         if c instanceof Array
           cc = c[0]
@@ -34,7 +33,7 @@ class IsLight extends Arrayable
     if lights.length == 1
       lights = lights[0]
 
-    @outPorts.light.send lights
+    return lights
 
   isLight: (a_color) ->
     color = new Color a_color
