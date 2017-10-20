@@ -5,32 +5,18 @@ band = {start:190, end:220, count:3}
 
 exports.getComponent = ->
   c = new noflo.Component
-  c.format = null
-  c.colors = null
+  c.inPorts.add 'colors',
+    datatype: 'array'
+  c.inPorts.add 'format',
+    datatype: 'string'
+    control: true
+    default: 'hsl'
+  c.outPorts.add 'out',
+    datatype: 'object'
+  c.forwardBrackets =
+    colors: ['out']
   
-  c.inPorts.add 'colors', (event, payload) ->
-    return unless event is 'data'
-    c.colors = payload
-    c.solve()
-
-  c.inPorts.add 'format', (event, payload) ->
-    return unless event is 'data'
-    c.format = payload
-    c.solve()
-    
-  c.outPorts.add 'out'
-  
-  c.solve = ->
-    return unless c.outPorts.out.isAttached()
-    return unless c.colors?
-    
-    colors = c.colors
-
-    if c.format is null
-      format = 'hsl'
-    else
-      format = c.format
-    
+  solve = (colors, format = 'hsl') ->
     options =
       format: format
       lights: ['white']
@@ -169,12 +155,20 @@ exports.getComponent = ->
     
     #prime = box.clone().rotate(-60)
 
-    c.outPorts.out.send {
+    return {
       box:box[format]()
       text:text[format]()
       meta:meta[format]()
       meta_highlight:meta_highlight[format]()
       prime:prime[format]()
     }
-  
-  c
+
+  c.process (input, output) ->
+    return unless input.hasData 'colors'
+    return if input.attached('format').length and not input.hasData 'format'
+    format = 'hsl'
+    if input.hasData 'format'
+      format = input.getData 'format'
+    colors = input.getData colors
+    output.sendDone
+      out: solve colors, format
