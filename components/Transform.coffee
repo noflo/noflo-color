@@ -1,8 +1,8 @@
 noflo = require 'noflo'
-{Arrayable} = require '../lib/Arrayable'
+ArrayableHelper = require 'noflo-helper-arrayable'
 Color = require 'color'
 
-class Transform extends Arrayable
+class Transform extends noflo.Component
   description: 'Transforms a color applying the given parameters.'
   icon: 'tint'
   constructor: ->
@@ -46,44 +46,42 @@ class Transform extends Arrayable
         required: false
       rotate:
         datatype: 'number'
-        type: 'noflo-canvas/angle'
         description: 'angle in degrees (0..360)'
         required: false
 
-    super 'color', ports
+    ArrayableHelper @, 'color', ports
 
-  compute: ->
-    return unless @outPorts.color.isAttached()
-    return unless @props.color? and @props.color.length>0
-    return unless @props.lighten? or @props.darken? or @props.saturate? or
-    @props.desaturate? or @props.whiten? or @props.blacken? or
-    @props.clearer? or @props.opaquer? or @props.rotate?
+  compute: (props) ->
+    return unless props.color? and props.color.length>0
+    return unless props.lighten? or props.darken? or props.saturate? or
+    props.desaturate? or props.whiten? or props.blacken? or
+    props.clearer? or props.opaquer? or props.rotate?
 
     new_colors = []
-    if @props.color instanceof Array
-      colors = @expandToArray @props.color
+    if props.color instanceof Array
+      colors = @expandToArray props.color
       for c in colors
         if c instanceof Array
           cc = c[0]
         else
           cc = c
-        # Calls @foo for each of @props.foo inport that has a value
-        for k of @props
+        # Calls @foo for each of props.foo inport that has a value
+        for k of props
           # Color and type are not expected methods (for color instance)
           if k isnt 'color' and k isnt 'type'
             # Following DRY, we use a factory to call proper color.method
-            cc = @factory(k, cc)
+            cc = @factory(k, cc, props)
         new_colors.push(cc)
 
     if new_colors.length == 1
       new_colors = new_colors[0]
 
-    @outPorts.color.send new_colors
+    return new_colors
 
-  factory: (op, old_color) ->
+  factory: (op, old_color, props) ->
     color = new Color old_color
     # Metaprogramming for the sake
-    new_color = color[op](@props[op]).hsl().string()
+    new_color = color[op](props[op]).hsl().string()
     return new_color
 
 exports.getComponent = -> new Transform
