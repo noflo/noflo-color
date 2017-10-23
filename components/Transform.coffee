@@ -68,7 +68,7 @@ class Transform extends noflo.Component
         # Calls @foo for each of props.foo inport that has a value
         for k of props
           # Color and type are not expected methods (for color instance)
-          if k isnt 'color' and k isnt 'type'
+          if k isnt 'color' and k isnt 'type' and k isnt 'id'
             # Following DRY, we use a factory to call proper color.method
             cc = @factory(k, cc, props)
         new_colors.push(cc)
