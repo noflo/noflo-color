@@ -6,6 +6,7 @@ class GetLuminosity extends noflo.Component
   description: 'Get the relative luminosity of a given color.'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'

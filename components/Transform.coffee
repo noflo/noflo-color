@@ -6,6 +6,7 @@ class Transform extends noflo.Component
   description: 'Transforms a color applying the given parameters.'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'

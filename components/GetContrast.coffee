@@ -6,6 +6,7 @@ class GetContrast extends noflo.Component
   description: 'Get the constrast ratio to a reference color (1 close, 21 far).'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'
