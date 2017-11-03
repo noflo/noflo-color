@@ -6,6 +6,7 @@ class Mix extends noflo.Component
   description: 'Mix the given colors with a reference color.'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'

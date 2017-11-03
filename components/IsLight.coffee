@@ -6,6 +6,7 @@ class IsLight extends noflo.Component
   description: 'Check if a light color.'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'

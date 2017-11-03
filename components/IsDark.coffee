@@ -6,6 +6,7 @@ class IsDark extends noflo.Component
   description: 'Check if a dark color.'
   icon: 'tint'
   constructor: ->
+    super()
     ports =
       color:
         datatype: 'object'
