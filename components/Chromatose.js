@@ -213,6 +213,7 @@ export function getComponent() {
         description: "Palette string format: hsl, rgb, or hex",
         control: true,
         default: "hsl",
+        values: ["hsl", "rgb", "hex"],
       },
     },
     outPorts: {
