@@ -1,0 +1,524 @@
+{
+  "format": "noflo-manifest",
+  "version": 1,
+  "id": "color",
+  "description": "Color manipulation for NoFlo",
+  "icon": null,
+  "npm": "@noflo/color",
+  "jsr": null,
+  "source": "https://github.com/noflo/noflo-color",
+  "revision": "c70ae5a20743f60bb7e44aae8181030fdfc91c8d",
+  "loader": false,
+  "namespaces": {},
+  "components": [
+    {
+      "name": "color/Chromatose",
+      "path": "components/Chromatose.js",
+      "type": "elementary",
+      "description": "Derives a color palette from a dominant color",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Dominant color to derive the palette from",
+            "required": true,
+            "control": false
+          },
+          {
+            "name": "format",
+            "datatype": "string",
+            "addressable": false,
+            "description": "Palette string format: hsl, rgb, or hex",
+            "required": false,
+            "control": true
+          }
+        ],
+        "outports": [
+          {
+            "name": "palette",
+            "datatype": "object",
+            "addressable": false,
+            "description": "Palette with box, text, meta, meta_highlight, prime",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/ConvertToHSL",
+      "path": "components/ConvertToHSL.js",
+      "type": "elementary",
+      "description": "Converts a given color to HSL",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to convert",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "color",
+            "datatype": "string",
+            "addressable": false,
+            "description": "CSS hsl() color string",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/ConvertToRGB",
+      "path": "components/ConvertToRGB.js",
+      "type": "elementary",
+      "description": "Converts a given color to RGB",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to convert",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "color",
+            "datatype": "string",
+            "addressable": false,
+            "description": "CSS rgb() color string",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/GetContrast",
+      "path": "components/GetContrast.js",
+      "type": "elementary",
+      "description": "Get the contrast ratio to a reference color (1 close, 21 far)",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to get contrast of",
+            "required": true,
+            "control": false
+          },
+          {
+            "name": "reference",
+            "datatype": "all",
+            "addressable": false,
+            "description": "A reference color",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "contrast",
+            "datatype": "number",
+            "addressable": false,
+            "description": "WCAG contrast ratio",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/GetLuminosity",
+      "path": "components/GetLuminosity.js",
+      "type": "elementary",
+      "description": "Get the relative luminosity of a given color",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to get luminosity of",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "luminosity",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Relative luminosity, 0..1",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/IsDark",
+      "path": "components/IsDark.js",
+      "type": "elementary",
+      "description": "Check if a dark color",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to check",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "dark",
+            "datatype": "boolean",
+            "addressable": false,
+            "description": "Whether the color appears dark",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/IsLight",
+      "path": "components/IsLight.js",
+      "type": "elementary",
+      "description": "Check if a light color",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to check",
+            "required": true,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "light",
+            "datatype": "boolean",
+            "addressable": false,
+            "description": "Whether the color appears light",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/Mix",
+      "path": "components/Mix.js",
+      "type": "elementary",
+      "description": "Mix the given colors with a reference color",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to mix",
+            "required": true,
+            "control": false
+          },
+          {
+            "name": "reference",
+            "datatype": "all",
+            "addressable": false,
+            "description": "A reference color",
+            "required": true,
+            "control": false
+          },
+          {
+            "name": "weight",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Weight (0 first, 1 second)",
+            "required": false,
+            "control": false
+          }
+        ],
+        "outports": [
+          {
+            "name": "color",
+            "datatype": "string",
+            "addressable": false,
+            "description": "Mixed color as CSS hsl() string",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    },
+    {
+      "name": "color/Transform",
+      "path": "components/Transform.js",
+      "type": "elementary",
+      "description": "Transforms a color applying the given parameters",
+      "icon": "tint",
+      "signature": {
+        "inports": [
+          {
+            "name": "color",
+            "datatype": "all",
+            "addressable": false,
+            "description": "Color to transform",
+            "required": true,
+            "control": false
+          },
+          {
+            "name": "lighten",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "darken",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "saturate",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "desaturate",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "whiten",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "blacken",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "clearer",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "opaquer",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Intensity (0..1)",
+            "required": false,
+            "control": true
+          },
+          {
+            "name": "rotate",
+            "datatype": "number",
+            "addressable": false,
+            "description": "Angle in degrees (0..360)",
+            "required": false,
+            "control": true
+          }
+        ],
+        "outports": [
+          {
+            "name": "color",
+            "datatype": "string",
+            "addressable": false,
+            "description": "Transformed color as CSS hsl() string",
+            "required": false,
+            "control": false
+          },
+          {
+            "name": "error",
+            "datatype": "object",
+            "addressable": false,
+            "description": "",
+            "required": false,
+            "control": false
+          }
+        ]
+      },
+      "spec": null,
+      "assembly": false,
+      "platforms": [
+        "browser",
+        "node",
+        "deno",
+        "bun"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+topic: color/ConvertToRGB
+cases:
+  - name: converting hex to rgb
+    assertion: should produce the rgb string
+    inputs:
+      color: '#ff0000'
+    expect:
+      color:
+        equals: 'rgb(255, 0, 0)'
+  - name: converting a named color
+    assertion: should produce the rgb string
+    inputs:
+      color: papayawhip
+    expect:
+      color:
+        equals: 'rgb(255, 239, 213)'
+  - name: preserving alpha
+    assertion: should produce the rgba string
+    inputs:
+      color: 'rgba(100, 150, 200, 0.5)'
+    expect:
+      color:
+        equals: 'rgba(100, 150, 200, 0.5)'
+---
+topic: color/ConvertToHSL
+cases:
+  - name: converting hex to hsl
+    assertion: should produce the hsl string
+    inputs:
+      color: '#ff0000'
+    expect:
+      color:
+        equals: 'hsl(0, 100%, 50%)'
+  - name: converting a translucent color
+    assertion: should produce the hsla string
+    inputs:
+      color: 'rgba(100, 150, 200, 0.5)'
+    expect:
+      color:
+        equals: 'hsla(210, 47.6%, 58.8%, 0.5)'
+---
+topic: color/IsDark
+cases:
+  - name: a dark color
+    assertion: should be dark
+    inputs:
+      color: '#333333'
+    expect:
+      dark:
+        equals: true
+  - name: a light color
+    assertion: should not be dark
+    inputs:
+      color: '#cccccc'
+    expect:
+      dark:
+        equals: false
+---
+topic: color/IsLight
+cases:
+  - name: a light color
+    assertion: should be light
+    inputs:
+      color: '#cccccc'
+    expect:
+      light:
+        equals: true
+  - name: a dark color
+    assertion: should not be light
+    inputs:
+      color: '#333333'
+    expect:
+      light:
+        equals: false
+---
+topic: color/GetLuminosity
+cases:
+  - name: white
+    assertion: should have full luminosity
+    inputs:
+      color: '#ffffff'
+    expect:
+      luminosity:
+        equals: 1
+  - name: black
+    assertion: should have zero luminosity
+    inputs:
+      color: '#000000'
+    expect:
+      luminosity:
+        equals: 0
+---
+topic: color/GetContrast
+cases:
+  - name: black against white
+    assertion: should have maximum contrast
+    inputs:
+      color: '#000000'
+      reference: '#ffffff'
+    expect:
+      contrast:
+        equals: 21
+---
+topic: color/Mix
+cases:
+  - name: mixing red and blue evenly
+    assertion: should produce purple
+    inputs:
+      color: '#ff0000'
+      reference: '#0000ff'
+    expect:
+      color:
+        equals: 'hsl(300, 100%, 25%)'
+  - name: mixing with a weight
+    assertion: should weight the mix toward the reference
+    inputs:
+      weight: 0.25
+      color: '#ff0000'
+      reference: '#0000ff'
+    expect:
+      color:
+        equals: 'hsl(340, 100%, 37.5%)'
+---
+topic: color/Transform
+cases:
+  - name: lightening a color
+    assertion: should lighten by the ratio
+    inputs:
+      lighten: 0.3
+      color: '#64748b'
+    expect:
+      color:
+        equals: 'hsl(215.4, 16.3%, 60.9%)'
+  - name: rotating hue
+    assertion: should rotate the hue
+    inputs:
+      rotate: 60
+      color: '#64748b'
+    expect:
+      color:
+        equals: 'hsl(275.4, 16.3%, 46.9%)'
